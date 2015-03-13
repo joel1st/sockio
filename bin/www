@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+"use strict";
+var debug = require('debug')('socket');
+var web = require('../app');
+
+web.app.set('port', process.env.PORT || 3000);
+
+var server = web.http.listen(web.app.get('port'), function() {
+  console.log('Express server listening on port ' + server.address().port);
+});
