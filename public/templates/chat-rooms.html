@@ -1,31 +1,112 @@
 <div id="chat-rooms" class="row">
-	<div class="col-sm-3 room-info">
-		<div class="room-title">
-			General Chat
+	<div class="col-sm-3 room-box">
+		<div class="room-info">
+			Create Room
 		</div>
-		<div class="room-stats">
-			5 People Chatting
-		</div>
-		<div class="recent-messages">
-			2 mins ago : [joeldo] - {{msg}}!!!
-			<ul>
-				<li ng-repeat="msg in messages">
-					{{msg}}
-				</li>
-			</ul>
-			<form ng-submit="submitMsg()">
-				<input type="text" ng-model="sendMessage" />
-				<input type="submit" id="submit" value="Submit" />
-			</form>
-			
-		</div>
-		<div class="join-chat">
-			
-			Join Chat!
-		</div>
-
+		
 	</div>
-	<div class="col-sm-3 room-info">Hello</div>
-	<div class="col-sm-3 room-info">Hello</div>
-	<div class="col-sm-3 room-info">Hello</div>
+	<div class="col-sm-3 room-box">
+		<div class="room-info">
+			<div class="room-title">
+				{{rooms}}
+			</div>
+			<div class="room-stats">
+				5 People Chatting
+			</div>
+			<div class="recent-messages">
+				2 mins ago : [joeldo] - {{msg}}!!!
+				<ul>
+					<li ng-repeat="msg in messages">
+						{{msg}}
+					</li>
+				</ul>
+				<form ng-submit="submitMsg()">
+					<input type="text" ng-model="sendMessage" />
+					<input type="submit" id="submit" value="Submit" />
+				</form>
+				
+			</div>
+			<a class="join-chat" href="#!/room/wafawefi">
+				Join Chat!
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-3 room-box">
+		<div class="room-info">
+			<div class="room-title">
+				{{rooms}}
+			</div>
+			<div class="room-stats">
+				5 People Chatting
+			</div>
+			<div class="recent-messages">
+				2 mins ago : [joeldo] - {{msg}}!!!
+				<ul>
+					<li ng-repeat="msg in messages">
+						{{msg}}
+					</li>
+				</ul>
+				<form ng-submit="submitMsg()">
+					<input type="text" ng-model="sendMessage" />
+					<input type="submit" id="submit" value="Submit" />
+				</form>
+				
+			</div>
+			<a class="join-chat" href="#!/room/wafawefi">
+				Join Chat!
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-3 room-box">
+		<div class="room-info">
+			<div class="room-title">
+				{{rooms}}
+			</div>
+			<div class="room-stats">
+				5 People Chatting
+			</div>
+			<div class="recent-messages">
+				2 mins ago : [joeldo] - {{msg}}!!!
+				<ul>
+					<li ng-repeat="msg in messages">
+						{{msg}}
+					</li>
+				</ul>
+				<form ng-submit="submitMsg()">
+					<input type="text" ng-model="sendMessage" />
+					<input type="submit" id="submit" value="Submit" />
+				</form>
+				
+			</div>
+			<a class="join-chat" href="#!/room/wafawefi">
+				Join Chat!
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-3 room-box">
+		<div class="room-info">
+			<div class="room-title">
+				{{rooms}}
+			</div>
+			<div class="room-stats">
+				5 People Chatting
+			</div>
+			<div class="recent-messages">
+				2 mins ago : [joeldo] - {{msg}}!!!
+				<ul>
+					<li ng-repeat="msg in messages">
+						{{msg}}
+					</li>
+				</ul>
+				<form ng-submit="submitMsg()">
+					<input type="text" ng-model="sendMessage" />
+					<input type="submit" id="submit" value="Submit" />
+				</form>
+				
+			</div>
+			<a class="join-chat" href="#!/room/wafawefi">
+				Join Chat!
+			</a>
+		</div>
+	</div>
 </div>

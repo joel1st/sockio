@@ -10,12 +10,15 @@ body {
 	color:white;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
 a {
 	color: #00B7FF;
 }
 input, button {
 	color: black;
+}
+
+.container{
+	width:95%;
 }
 /* Navigation */
 
@@ -83,20 +86,32 @@ li.highlight a{
 #chat-rooms {
 	margin-top: 20px;
 }
+.room-box {
+	padding:5px;
+	height:250px;
+}
 .room-info {
 	background-color: rgb(35, 36, 37);
-	padding:10px;
-	margin: 3px;
-	height:250px;
 	box-shadow: 1px 1px 1px rgba(1,1,1,0.2);
   	border-top: 3px solid rgb(4, 69, 79);
 }
-
 .room-title{
 	font-weight:bold;
 	font-size:1.8em;
 }
-
+.room-title, .room-stats, .recent-messages{
+	padding:5px;
+}
+.join-chat{
+	margin-top:10px;
+	display:inline-block;
+	text-align:center;
+	padding:12px;
+	background-color:orange;
+	width:100%;
+	color:white;
+	font-weight:bold;
+}
 
 
 
