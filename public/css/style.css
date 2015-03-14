@@ -1,8 +1,103 @@
+/* Primary colours */
+/* background: #FDF9E7*/
+/* font: 04454f; */
+/* highlight: ff7b3a;*/
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color:rgb(21, 21, 21);
+	margin: 0px;
+	padding:0px;
+	color:white;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+/* Navigation */
+
+div.logo {
+	float:left;
+	margin-top: -5px
+}
+
+nav {
+	padding-top:20px;
+	padding-left:18px;
+	font-weight:bold;
+	color:white;
+	background:#ff7b3a;
+	width:100%;
+	min-height:60px;
+}
+
+nav ul{
+	float:left;
+	padding:0px;
+	margin:0px;
+}
+
+nav ul > li {
+	margin-left:22px;
+	display:inline-block;
+	text-decoration:none;
+	list-style: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+nav ul > li > a{
+	color:white;
+	padding:12px;
+}
+
+nav ul > li:hover a {
+	background-color:#075C69;
+	color:white;
+	text-decoration:none;
+}
+
+li.highlight a{
+	
+	background-color:#04454f;
+}
+
+/* Front Page */
+.guest {
+	width:100%;
+	
+	padding:15px;
+	font-weight:bold;
+	color: #333;
+
+	background-color:lightblue;
+}
+
+
+
+/* chat room page */
+#chat-rooms {
+	margin-top: 20px;
+}
+.room-info {
+	background-color: rgb(35, 36, 37);
+	padding:10px;
+	margin: 3px;
+	height:250px;
+	box-shadow: 1px 1px 1px rgba(1,1,1,0.2);
+  	border-top: 3px solid rgb(4, 69, 79);
+}
+
+.room-title{
+	font-weight:bold;
+	font-size:1.8em;
+}
+
+
+
+
+
+
+

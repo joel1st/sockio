@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" ng-app="chatApp"><head>
+<html lang="en" ng-app="chatApp">
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,9 +27,23 @@
   <body>
   <div class="main-container">
     <noscript>To make the most of this website, we strongly recommend turning JavaScript on! It powers pretty much everything!</noscript>
-
+    <nav class="clear-fix">
+      <div class="logo">
+        <img src="/img/sockio.png" alt="sockio logo" />
+      </div>
+      <ul>
+        <li><a href="#/rooms">Rooms</a></li>
+        <li><a href="#/sign-in">Sign Up/Sign In</a></li>
+        <li class="highlight"><a href="#/new-room">Create Room</a></li>
+      </ul>
+    </nav>
+    <div class="guest" ng-controller="GuestNameCtrl">
+      Don't have an account? Feel free to set a guest name!
+      {{guestName}} 
+      <input type="text" ng-model="guestName">
+    </div>
     <div class="container" ng-view></div>
-    hey dere
+    
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
