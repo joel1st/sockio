@@ -1,6 +1,6 @@
 "use strict";
-chatApp.controller('ChatRoomsCtrl', ["$scope", "Socket", function($scope, Socket){
-	var sock = new Socket('fast-chat');
+chatApp.controller('CreateRoomCtrl', ["$scope", "Socket", function($scope, Socket){
+	var sock = new Socket('overview-chat');
 	$scope.messages = [];
 
 	sock.on('msg', function(data){
@@ -35,13 +35,5 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 }]);
 
 chatApp.controller('GuestNameCtrl', ["$scope", function($scope){
-	$scope.guestName = 'joel';
-}]);
-
-chatApp.controller('CreateRoomCtrl', ["$scope", function($scope){
-	$scope.guestName = 'joel';
-}]);
-
-chatApp.controller('LoginOrRegisterCtrl', ["$scope", function($scope){
 	$scope.guestName = 'joel';
 }]);
