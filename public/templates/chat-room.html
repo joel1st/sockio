@@ -1,4 +1,19 @@
 <div id="chat-room" class="row">
-	Hey dere
+	<div id="chat-box" fill-height>
+		<ul>
+			<li ng-repeat="msg in messages">
+				{{msg}}
+			</li>
+		</ul>		
+		<div class="submit-msg">
+			<form ng-submit="chat.submitMsg()">
+				<textarea rows="{{chat.entered}}" type="text-area" ng-model="chat.message" autofocus determine-space></textarea>
+				<input type="submit" ng-click="chat.submitMsg()">
+			</form>
+		</div>
+	</div>
+	<div id="chat-sidebar" fill-height>
+		
+	</div>
 	{{roomId}}
 </div>

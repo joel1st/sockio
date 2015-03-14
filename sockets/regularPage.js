@@ -8,5 +8,11 @@ module.exports = function(io){
 	    socket.on('msg', function(data){
 	        fastChat.emit('msg', data);
 	    });
+	    socket.on('disconnect-msg', function(){
+	    	socket.disconnect();
+	    });
+	    socket.on('disconnect', function(){
+	    	console.log('a client disconnected');
+	    });
 	});
 };

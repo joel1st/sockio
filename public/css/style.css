@@ -2,18 +2,27 @@
 /* background: #FDF9E7*/
 /* font: 04454f; */
 /* highlight: ff7b3a;*/
-
+html{
+	height:100%;
+}
 body {
 	background-color:rgb(21, 21, 21);
 	margin: 0px;
 	padding:0px;
+	height:100%;
 	color:white;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.main-container{
+	height:100%;
+}
+#view-area{
+	height:auto;
 }
 a {
 	color: #00B7FF;
 }
-input, button {
+input, button, textarea {
 	color: black;
 }
 
@@ -80,6 +89,38 @@ li.highlight a{
 	background-color:lightblue;
 }
 
+/* Individual Page */
+#chat-room{
+
+}
+#chat-box{
+	width:80%;
+	background-color:#333;
+	float:left;
+	position:relative;
+}
+#chat-sidebar{
+	float:left;
+	width:20%;
+	background-color:#333;
+}
+textarea{
+	width:80%;
+	padding:15px;
+	transition: height 2s;
+	height:auto;
+	position:absolute;
+	bottom:0;
+	left:0;
+	font-size:2em;
+}
+input[type="submit"]{
+	width:20%;
+	height:50px;
+	position:absolute;
+	bottom:0;
+	right:0;
+}
 
 
 /* chat room page */
