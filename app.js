@@ -32,10 +32,10 @@ app.use('/users', users);
 var fastChat = io.of('/fast-chat');
 fastChat.on('connection', function(socket){
     console.log('connection made!');
-    fastChat.emit('msg', 'your special day');
-    socket.emit('msg', 'a specific message to a specific person');
-    socket.on('swere', function(data){
-        console.log(data);
+    
+    //fastChat.emit('msg', 'a specific message to a specific person');
+    socket.on('msg', function(data){
+        fastChat.emit('msg', data);
     });
 });
 
