@@ -15,25 +15,37 @@ chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", 
 	}
 }]);
 
-chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
-	var sock = new Socket('regular-chat', $routeParams.id);
-	$scope.invalidRoom;
-	$scope.messages = []; 
-	// sock.on('roomDetails', function(data){
-	// 	if(!data){
-	// 		$scope.invalidRoom = true;
-	// 	}
-	// 	$scope.roomInfo = data;
-	// });
 
-	sock.on('msg', function(data){
-		$scope.$apply(function(){
-			if (Array.isArray(data)){
-				$scope.messages = data.concat($scope.messages);
-			} else {
-				$scope.messages.push(data);
-			}
-		});
+chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function($scope, $location, Socket){
+	$scope.rooms = [{
+		title: "The News Room",
+		dateModified: "5 days ago",
+		message: "yolo baggins"
+	}];
+	var sock = new Socket('overview', null, $scope);
+	sock.on('roomInfo', function(data){
+		$scope.rooms = data;
+	});
+}]);
+
+
+
+chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
+
+	var sock = new Socket('regular-chat', $routeParams.id, $scope);
+	$scope.invalidRoom;
+
+	$scope.messages = []; 
+	sock.on('msg', function(data){	
+		if (Array.isArray(data)){
+			$scope.messages = data.concat($scope.messages);
+		} else {
+			$scope.messages.push(data);
+		}
+	});
+
+	sock.on('room-info', function(data){	
+		// get room info
 	});
 
 	$scope.chat = {
@@ -52,6 +64,9 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		}
 	};
 
+	$scope.$on('$locationChangeStart', function(){
+		sock.disconnect();
+	});
 }]);
 
 

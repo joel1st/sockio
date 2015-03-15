@@ -1,13 +1,11 @@
 <div>
-	<h1>Create a room:</h1> 
+	
 	<form name="form" novalidate ng-submit="submitRoom()" ng-validate>
+		<h1>Create a room:</h1> 
 		Room Title: <input type="text" name="title" ng-model="room.title" ng-required="true">
 		<div ng-show="form.$submitted || form.title.$touched">
 	      <div class="error" ng-show="form.title.$error.required">Please provide a title.</div>
 	    </div>
-	    <br />
-
-		Link To Discuss (optional): <input type="text" ng-model="room.link"/>
 		<br/>
 		<input type="radio" name="roomtype" ng-model="room.roomType" value="public" style="margin-left:20px;">Public
 		<input type="radio" name="roomtype" ng-model="room.roomType" value="private" style="margin-left:20px;">Url Only
@@ -21,10 +19,16 @@
 		<br />
 		<input type="submit" />
 	</form>
+
 	<div>
-		Chat room
-		<div class="active-rooms">
-			
+		<h1> Or Join an Active Room </h1>
+		<div class="active-rooms" ng-controller="ActiveRoomsCtrl">
+			<div ng-repeat="room in rooms">
+				<a href="">{{room.title}}</a>
+				Last Message: {{room.dateModified}}
+				Last Comment: {{room.message}}
+			</div>
+
 		</div>
 	</div>
 </div>

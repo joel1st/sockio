@@ -49,6 +49,15 @@ app.use(sessionMiddleware);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
+app.use(function(req, res, next){
+    function lightHue(){
+        return 'lol';
+    }
+    if(!req.session.colour){
+        req.session.colour = "rgb(1,4,5)";
+    }
+    next();
+})
 app.use('/', routes);
 app.use('/createRoom', createRoom);
 
