@@ -17,12 +17,10 @@ var io = require('socket.io')(http);
 
 //require routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var createRoom = require('./routes/createRoom');
 
 //require sockets
-var singlePageChart = require('./sockets/singlePageChart');
 var regularPage = require('./sockets/regularPage');
-var privateChat = require('./sockets/privateChat');
 var overview = require('./sockets/overview');
 
 
@@ -37,23 +35,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
+var sessionMiddleware = session({
     secret: process.env.SECRET || 'secret ',
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 3 * 1 * 24 * 60 * 60 // = 3 months
+    }),
     resave: true,
-    saveUninitialized: false
-}));
+    saveUninitialized: true
+});
+app.use(sessionMiddleware);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
 app.use('/', routes);
-app.use('/users', users);
+app.use('/createRoom', createRoom);
 
 //socket namespacing
 var recentThreads = [];
-
+//http://stackoverflow.com/questions/25532692/how-to-share-sessions-with-socket-io-1-x-and-express-4-x/25618636#25618636
+io.use(function(socket, next){
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
 regularPage(io, recentThreads);
-singlePageChart(io, recentThreads);
-privateChat(io);
 overview(io, recentThreads)
 
 

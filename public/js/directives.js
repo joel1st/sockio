@@ -40,10 +40,7 @@ chatApp.directive('determineSpace', function(){
 		    element.bind("keyup", function(event) {
 		        if (event.which in keysHeld) {
 		        	if(event.which === 13 && !keysHeld[16]){
-		            	if(scope.chat.message.length){
-		            		console.log(this.value);
-		            		scope.chat.submitMsg();
-		            	}
+		            	scope.chat.submitMsg();
 		            }
 		            keysHeld[event.keyCode] = false;
 		        }

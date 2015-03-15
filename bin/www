@@ -2,6 +2,7 @@
 "use strict";
 var debug = require('debug')('socket');
 var web = require('../app');
+var db = require('../db');
 
 web.app.set('port', process.env.PORT || 3000);
 

@@ -13,6 +13,9 @@ body {
 	color:white;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+.error{
+	color:red;
+}
 .main-container{
 	height:100%;
 }
@@ -104,7 +107,7 @@ li.highlight a{
 	width:20%;
 	background-color:#333;
 }
-textarea{
+#chat-room textarea{
 	width:80%;
 	padding:15px;
 	transition: height 2s;
@@ -114,7 +117,7 @@ textarea{
 	left:0;
 	font-size:2em;
 }
-input[type="submit"]{
+#chat-room input[type="submit"]{
 	width:20%;
 	height:50px;
 	position:absolute;

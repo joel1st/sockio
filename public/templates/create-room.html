@@ -1,14 +1,30 @@
 <div>
-Choose a room type: 
-Link: 
-Text Post:
-Poll:
-----
-public/url only/password protect
-<div>
-	Chat room
-	<div class="active-rooms">
-		
+	<h1>Create a room:</h1> 
+	<form name="form" novalidate ng-submit="submitRoom()" ng-validate>
+		Room Title: <input type="text" name="title" ng-model="room.title" ng-required="true">
+		<div ng-show="form.$submitted || form.title.$touched">
+	      <div class="error" ng-show="form.title.$error.required">Please provide a title.</div>
+	    </div>
+	    <br />
+
+		Link To Discuss (optional): <input type="text" ng-model="room.link"/>
+		<br/>
+		<input type="radio" name="roomtype" ng-model="room.roomType" value="public" style="margin-left:20px;">Public
+		<input type="radio" name="roomtype" ng-model="room.roomType" value="private" style="margin-left:20px;">Url Only
+		<input type="radio" name="roomtype" ng-model="room.roomType" value="protected" style="margin-left:20px;">Password Protected
+		<div ng-if="room.roomType === 'protected'">
+			Password: <input type="password" name="pass" ng-required="room.roomType === 'protected'"  ng-model="room.password"/>
+			<div ng-show="form.$submitted || form.pass.$touched">
+		      <div ng-show="form.pass.$error.required" class="error">Please provide a password.</div>
+		    </div>
+		</div>
+		<br />
+		<input type="submit" />
+	</form>
+	<div>
+		Chat room
+		<div class="active-rooms">
+			
+		</div>
 	</div>
-</div>
 </div>
