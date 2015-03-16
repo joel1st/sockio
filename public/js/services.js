@@ -1,11 +1,9 @@
 "use strict";
-chatApp.factory('retrievePastMessages', ["$routeParams", function($routeParams) {
-	return; 
-}]);
 
 chatApp.factory('Socket', [function() {
+
 	var Socket = function(namespace, room, scope){
-		this.socket = io.connect(":3000/"+namespace);
+		this.socket = io.connect(":3000/"+namespace, {forceNew: true});
 		this.room = room;
 		this.scope = scope;
 		this.status = {
@@ -13,6 +11,7 @@ chatApp.factory('Socket', [function() {
 		}
 
 		this.socket.on('connect', function(){
+			console.log('connected')
 			this.emit('join-room');
 			this.applyScope(function(){
 				this.status.online = true;
@@ -40,7 +39,7 @@ chatApp.factory('Socket', [function() {
 	};
 
 	Socket.prototype.disconnect = function(){
-		this.emit('disconnectMe', this.room);
+		this.socket.emit('disconnectMe');
 	};
 
 	Socket.prototype.applyScope = function(callback){

@@ -53,7 +53,6 @@ module.exports = function(regular, io){
 		indexOfUser: function(userArray, sessionId){
 			for(var i = 0; i < userArray.length; i++){
 				if (userArray[i].sessionId === sessionId){
-					console.log('we got a match');
 					return i;
 				} 
 			};
@@ -61,7 +60,6 @@ module.exports = function(regular, io){
 		},
 
 		activeUsers: function(userArray){
-			console.log('getting this');
 			var newArr = [];
 			for(var i = 0; i < userArray.length; i++){
 				newArr.push(userArray[i].userInfo);
@@ -91,13 +89,10 @@ module.exports = function(regular, io){
 					message: "Joined the chat.",
 					style: "new-user"
 				});
-				console.log('new user in room!');
 
 			} else {
-				console.log('multiple instances of user!');
 				userArray[userIndex].connections++;
 			} 
-			console.log(userArray);
 			socket.emit('newUser', this.activeUsers(userArray));
 		},
 

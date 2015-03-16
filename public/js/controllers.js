@@ -32,6 +32,7 @@ chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function
 
 chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
 	var sock = new Socket('regular-chat', $routeParams.id, $scope);
+	console.log('ahoo');
 	$scope.status = sock.status;
 
 	$scope.messages = []; 
@@ -43,25 +44,28 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		}
 	});
 
-	$scope.newUsers = [];
+	$scope.users = [];
 	sock.on('newUser', function(data){	
-		console.log(data);
 		if (Array.isArray(data)){
-			$scope.newUsers = data;
+			$scope.users = data;
 		} else {
-			$scope.newUsers.push(data);
+			$scope.users.push(data);
 		}
 	});
 	sock.on('removeUser', function(ind){	
-		$scope.newUsers.splice(ind, 1);
+		$scope.users.splice(ind, 1);
 	});
+
+	$scope.title = '';
+	sock.on('roomInfo', function(data){
+		$scope.title = data;
+	})
 
 	$scope.chat = {
 		maxLength:450,
 		entered: 1, //number of lines for text input area
 		message: "",
 		submitMsg: function(){
-			console.log('submitsuccessful');
 			if($scope.chat.message.length){
 				sock.emit('msg', $scope.chat.message);
 				$scope.chat.message = "";
@@ -72,6 +76,7 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 
 	$scope.$on('$locationChangeStart', function(){
 		sock.disconnect();
+		//console.log('disconnected');
 	});
 }]);
 

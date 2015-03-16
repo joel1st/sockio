@@ -13,7 +13,9 @@ module.exports = function(io){
 	    /* join room and get recent messages */
 	    socket.on('join-room', function(data){
 	    	helper.authenticateUser(socket, data, function(data, doc){
+	    		socket.emit('roomInfo', doc.title);
 	    		socket.emit('msg', doc.messages) //sends all messages when user first enters a room.
+
 	    		// regular.to(socket.roomId).emit('userChange', "there is a new kid on the block"+Math.random());
 	    		helper.newUser(socket, socket.roomId, sessionId, session);
 	    	});	
@@ -28,14 +30,12 @@ module.exports = function(io){
 					message: data.msg
 				});
 	    	});	
-
 	    });
 
 	    /* Allow angular to disconnect from room when changing rooms */
 	    socket.on('disconnectMe', function(){
 	    	helper.removeUser(socket, socket.roomId, sessionId);
-	    	socket.leave(socket.roomId);
-	    	socket.roomId = null;
+	    	socket.disconnect();
 	    });
 
 	    socket.on('disconnect', function(){

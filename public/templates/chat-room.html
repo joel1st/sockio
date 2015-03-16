@@ -27,12 +27,12 @@
 	</section>
 	<aside id="chat-sidebar" fill-height>
 		<div id="chatroom-title">
-			<h1>Is This a real title!!</h1>
+			<h1>{{title}}</h1>
 		</div>
 		<div id="currentUsers">
-			<h2>Users in Chat - {{newUsers.length}}</h2>
+			<h2>Users in Chat - {{users.length}}</h2>
 			<div class="users">
-				<div ng-repeat="user in newUsers | orderBy:'-userName'" class="user">
+				<div ng-repeat="user in users | orderBy:'-userName'" class="user">
 					<span style="color:{{user.userColour}}">{{user.userName}}</span>
 				</div>
 			</div>

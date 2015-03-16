@@ -103,14 +103,14 @@ a:hover, a:focus {
 }
 #chat-box{
 	width:80%;
-	background-color:#333;
+	background-color:#2F3134;
 	float:left;
 	position:relative;
 }
 #chat-sidebar {
   float: left;
   width: 20%;
-  background-color: #333;
+  background-color: #28292A;
   border-left: 1px solid rgb(31, 31, 31);
 }
 #chat-room textarea{
