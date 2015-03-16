@@ -43,10 +43,15 @@
           <li class="highlight"><a href="#/create-room">Create Room</a></li>
         </ul>
       </nav>
-      <div class="guest" ng-controller="GuestNameCtrl">
-        Set a name:
-        {{userName}} 
-        <input type="text" ng-model="userName">
+      <div class="guest" ng-controller="GuestNameCtrl">   
+        <form ng-submit="update()" ng-show="!userNameSet">
+          Set a name:
+          <input type="text" ng-model="userName">
+          <input type="submit"></button>
+        </form>
+        <span ng-show="userNameSet">
+          Welcome {{userName}}
+        </span>
       </div>
     </header>
     <div id="view-area" class="container" ng-view></div>

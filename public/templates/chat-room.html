@@ -1,8 +1,8 @@
 <div class="offline row" ng-show="!status.online">
 	Chat is currently offline!
 </div>
-<div class="room-not-found" ng-show="status.roomNotFound">
-	We couldn't find the room you are looking for! Try creating a room, or ask you friend for the link again.	
+<div class="room-not-found" ng-show="room.notFound">
+	We couldn't find the room you are looking for! Try creating a room, or ask your friend for the link again.	
 </div>
 <div id="chat-room" class="row" ng-show="status.online && !status.roomNotFound">
 	<section id="chat-box" fill-height>
@@ -18,7 +18,7 @@
 			</div>
 		</div>		
 		<div class="submit-msg">
-			<form ng-submit="chat.submitMsg()">
+			<form ng-submit="chat.submitMsg()" ng-validate>
 				<div class="max-words" ng-class=""> {{chat.message.length}} / {{chat.maxLength}}</div>
 				<textarea ng-maxlength="chat.maxLength" rows="{{chat.entered}}" type="text-area" ng-model="chat.message" autofocus determine-space></textarea>
 				<input type="submit">
@@ -27,7 +27,7 @@
 	</section>
 	<aside id="chat-sidebar" fill-height>
 		<div id="chatroom-title">
-			<h1>{{title}}</h1>
+			<h1>{{room.title}}</h1>
 		</div>
 		<div id="currentUsers">
 			<h2>Users in Chat - {{users.length}}</h2>

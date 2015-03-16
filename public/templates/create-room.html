@@ -2,33 +2,27 @@
 	
 	<form name="form" novalidate ng-submit="submitRoom()" ng-validate>
 		<h1>Create a room:</h1> 
-		Room Title: <input type="text" name="title" ng-model="room.title" ng-required="true">
+		Room Title 
+		<span ng-class="{error:room.title.length >= 50}">
+			({{room.title.length || 0}}/{{50}})
+		</span>
+		
+		<input type="text" name="title" ng-model="room.title" ng-required="true" ng-maxlength="50"><input type="submit" />
+
 		<div ng-show="form.$submitted || form.title.$touched">
 	      <div class="error" ng-show="form.title.$error.required">Please provide a title.</div>
 	    </div>
-		<br/>
-		<input type="radio" name="roomtype" ng-model="room.roomType" value="public" style="margin-left:20px;">Public
-		<input type="radio" name="roomtype" ng-model="room.roomType" value="private" style="margin-left:20px;">Url Only
-		<input type="radio" name="roomtype" ng-model="room.roomType" value="protected" style="margin-left:20px;">Password Protected
-		<div ng-if="room.roomType === 'protected'">
-			Password: <input type="password" name="pass" ng-required="room.roomType === 'protected'"  ng-model="room.password"/>
-			<div ng-show="form.$submitted || form.pass.$touched">
-		      <div ng-show="form.pass.$error.required" class="error">Please provide a password.</div>
-		    </div>
-		</div>
 		<br />
-		<input type="submit" />
+		
 	</form>
 
 	<div>
 		<h1> Or Join an Active Room </h1>
 		<div class="active-rooms" ng-controller="ActiveRoomsCtrl">
-			<div ng-repeat="room in rooms">
-				<a href="">{{room.title}}</a>
-				Last Message: {{room.dateModified}}
-				Last Comment: {{room.message}}
+			<div class="room-link" ng-repeat="room in rooms | orderBy:'-dateModified'">
+				<div><a href="#/room/{{room._id}}">{{room.title}}</a></div>
+				Last Message: <span am-time-ago="room.dateModified"></span>
 			</div>
-
 		</div>
 	</div>
 </div>

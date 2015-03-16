@@ -1,12 +1,17 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 
+
+var enforceTitleLength = function(property) {
+	return (property && property.length >= 1 && property.length <= 80);
+};
+
 var enforceMessageLength = function(property) {
-	return (property.length >= 1 && property.length <= 250);
+	return (property && property.length >= 1 && property.length <= 500);
 };
 
 var enforceUsernameLength = function(property) {
-	return (property.length >= 1 && property.length <= 15);
+	return (property && property.length >= 1 && property.length <= 15);
 };
 
 var enforceValidType = function(property){
@@ -20,7 +25,7 @@ var ChatRoom = new mongoose.Schema({
 		type: String,
 		trim: true,
 		required: true,
-		validate: [enforceMessageLength, 'Please stick within 250 characters.']
+		validate: [enforceMessageLength, 'Please stick within 80 characters.']
 	},
 	roomType: {
 		type: String,
@@ -41,7 +46,7 @@ var ChatRoom = new mongoose.Schema({
 			type: String,
 			trim: true,
 			required: true,
-			validate: [enforceMessageLength, 'Please stick within 250 characters.']
+			validate: [enforceMessageLength, 'Please stick within 500 characters.']
 		},
 		style: String,
 		date: {type: Date, 'default': Date.now}

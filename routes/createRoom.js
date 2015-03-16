@@ -7,9 +7,12 @@ router.post('/', function(req, res) {
 	console.log(req.body)
 	var chat = new ChatRoom(req.body);
 	chat.save(function(err, data){
-		res.send(data._id);
+		if(!err){
+			res.send(data._id);
+		} else {
+			res.status(400).send('did not validate')
+		}
 	});
-	
 });
 
 module.exports = router;

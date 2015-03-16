@@ -17,14 +17,12 @@ chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", 
 
 
 chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function($scope, $location, Socket){
-	$scope.rooms = [{
-		title: "The News Room",
-		dateModified: "5 days ago",
-		message: "yolo baggins"
-	}];
+	$scope.rooms = [];
 	var sock = new Socket('overview', null, $scope);
-	sock.on('roomInfo', function(data){
+
+	sock.on('recentChats', function(data){
 		$scope.rooms = data;
+		console.log()
 	});
 }]);
 
@@ -32,34 +30,11 @@ chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function
 
 chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
 	var sock = new Socket('regular-chat', $routeParams.id, $scope);
-	console.log('ahoo');
+	
 	$scope.status = sock.status;
-
 	$scope.messages = []; 
-	sock.on('msg', function(data){	
-		if (Array.isArray(data)){
-			$scope.messages = data;
-		} else {
-			$scope.messages.push(data);
-		}
-	});
-
 	$scope.users = [];
-	sock.on('newUser', function(data){	
-		if (Array.isArray(data)){
-			$scope.users = data;
-		} else {
-			$scope.users.push(data);
-		}
-	});
-	sock.on('removeUser', function(ind){	
-		$scope.users.splice(ind, 1);
-	});
-
-	$scope.title = '';
-	sock.on('roomInfo', function(data){
-		$scope.title = data;
-	})
+	$scope.room = {};
 
 	$scope.chat = {
 		maxLength:450,
@@ -74,16 +49,52 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		},
 	};
 
+	sock.on('msg', function(data){	
+		if (Array.isArray(data)){
+			$scope.messages = data;
+		} else {
+			$scope.messages.push(data);
+		}
+	});
+	
+	sock.on('newUser', function(data){	
+		if (Array.isArray(data)){
+			$scope.users = data;
+		} else {
+			$scope.users.push(data);
+		}
+	});
+
+	sock.on('removeUser', function(ind){	
+		$scope.users.splice(ind, 1);
+	});
+
+	sock.on('roomInfo', function(data){
+		if (typeof data === 'boolean'){
+			$scope.room.notFound = data;
+		} else {
+			$scope.room.title = data;
+		}
+	});
+
 	$scope.$on('$locationChangeStart', function(){
 		sock.disconnect();
-		//console.log('disconnected');
 	});
 }]);
 
-
-
-
-chatApp.controller('GuestNameCtrl', ["$scope", function($scope){
+chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$route", function($scope, $http, $route){
 	$scope.userNameSet = chatIoData.set || false;
 	$scope.userName = chatIoData.name;
+	$scope.update = function(){
+		$http.post('/changeUser', {name: $scope.userName}).
+		  success(function(data, status, headers, config) {
+		    $scope.userNameSet = true;
+		    $route.reload();
+		  }).
+		  error(function(data, status, headers, config) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		});
+	}
+	
 }]);

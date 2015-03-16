@@ -18,6 +18,7 @@ var io = require('socket.io')(http);
 //require routes
 var routes = require('./routes/index');
 var createRoom = require('./routes/createRoom');
+var changeUser = require('./routes/changeUser');
 
 //require sockets
 var regularPage = require('./sockets/regularPage');
@@ -53,8 +54,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //routes
-app.use('/', routes);
+app.use('/changeUser', changeUser);
 app.use('/createRoom', createRoom);
+app.use('/', routes);
+
 
 //socket namespacing
 var recentThreads = [];
