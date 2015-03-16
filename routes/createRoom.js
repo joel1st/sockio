@@ -7,8 +7,6 @@ router.post('/', function(req, res) {
 	console.log(req.body)
 	var chat = new ChatRoom(req.body);
 	chat.save(function(err, data){
-		console.log(err);
-		console.log(data);
 		res.send(data._id);
 	});
 	

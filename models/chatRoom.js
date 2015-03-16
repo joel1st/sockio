@@ -1,8 +1,12 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 
-var enforceLength = function(property) {
+var enforceMessageLength = function(property) {
 	return (property.length >= 1 && property.length <= 250);
+};
+
+var enforceUsernameLength = function(property) {
+	return (property.length >= 1 && property.length <= 15);
 };
 
 var enforceValidType = function(property){
@@ -16,23 +20,30 @@ var ChatRoom = new mongoose.Schema({
 		type: String,
 		trim: true,
 		required: true,
-		validate: [enforceLength, 'Please enter an appropriate title.']
+		validate: [enforceMessageLength, 'Please stick within 250 characters.']
 	},
 	roomType: {
 		type: String,
-		validate: [enforceValidType, 'Please choose a valid entry.'],
+		validate: [enforceValidType, 'Please choose a valid room type.'],
 		default: 'public'
 	},
 	salt: String,
 	password: String,
 	messages: [{
-		session: String,
+		userName: {
+			type: String,
+			trim: true,
+			required: true,
+			validate: [enforceUsernameLength, 'Please stick within 15 characters for your username.']
+		},
+		userColour: String,
 		message: {
 			type: String,
 			trim: true,
 			required: true,
-			validate: [enforceLength, 'Please enter an appropriate title.']
+			validate: [enforceMessageLength, 'Please stick within 250 characters.']
 		},
+		style: String,
 		date: {type: Date, 'default': Date.now}
 	}]
 });
@@ -41,7 +52,7 @@ var ChatRoom = new mongoose.Schema({
 ChatRoom.index({'messages.date': -1, dateModified: -1})
 
 
-// Use mean.js method of hasing passwords.
+// Use mean.js method of hasing passwords. (http://meanjs.org/)
 /**
  * Hook a pre save method to hash the password
  */

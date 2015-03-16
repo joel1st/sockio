@@ -23,6 +23,9 @@ var createRoom = require('./routes/createRoom');
 var regularPage = require('./sockets/regularPage');
 var overview = require('./sockets/overview');
 
+//selfmade middleware
+var sessionIdentity = require('./middleware/sessionIdentity');
+var sessionSharing = require('./middleware/sessionSharing');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,28 +48,17 @@ var sessionMiddleware = session({
     saveUninitialized: true
 });
 app.use(sessionMiddleware);
-
+app.use(sessionIdentity);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 //routes
-app.use(function(req, res, next){
-    function lightHue(){
-        return 'lol';
-    }
-    if(!req.session.colour){
-        req.session.colour = "rgb(1,4,5)";
-    }
-    next();
-})
 app.use('/', routes);
 app.use('/createRoom', createRoom);
 
 //socket namespacing
 var recentThreads = [];
-//http://stackoverflow.com/questions/25532692/how-to-share-sessions-with-socket-io-1-x-and-express-4-x/25618636#25618636
-io.use(function(socket, next){
-    sessionMiddleware(socket.request, socket.request.res, next);
-});
+io.use(sessionSharing(sessionMiddleware));
 regularPage(io, recentThreads);
 overview(io, recentThreads)
 

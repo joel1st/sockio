@@ -1,22 +1,26 @@
-<div class="room-not-found" ng-if="roomNotFound">
+<div class="offline row" ng-show="!status.online">
+	Chat is currently offline!
+</div>
+<div class="room-not-found" ng-show="status.roomNotFound">
 	We couldn't find the room you are looking for! Try creating a room, or ask you friend for the link again.	
 </div>
-<div id="chat-room" class="row">
+<div id="chat-room" class="row" ng-show="status.online && !status.roomNotFound">
 	<section id="chat-box" fill-height>
 		<div class="messages">
 			<div class="message clearfix" ng-repeat="msg in messages">
 				<div class="user">
-					<div class="user-id">{{msg.session}}</div>
+					<div class="user-id" style="color:{{msg.userColour}}">{{msg.userName}}</div>
 					<div class="message-sent"><span am-time-ago="msg.date"></span></div>
 				</div>
-				<div class="user-message">
+				<div class="user-message {{msg.style}}">
 					{{msg.message}}
 				</div>
 			</div>
 		</div>		
 		<div class="submit-msg">
 			<form ng-submit="chat.submitMsg()">
-				<textarea rows="{{chat.entered}}" type="text-area" ng-model="chat.message" autofocus determine-space></textarea>
+				<div class="max-words" ng-class=""> {{chat.message.length}} / {{chat.maxLength}}</div>
+				<textarea ng-maxlength="chat.maxLength" rows="{{chat.entered}}" type="text-area" ng-model="chat.message" autofocus determine-space></textarea>
 				<input type="submit">
 			</form>
 		</div>
@@ -25,17 +29,13 @@
 		<div id="chatroom-title">
 			<h1>Is This a real title!!</h1>
 		</div>
-		<div id="newAddition">
-			<h2>User Activity</h2>
-			Name023840249 Joined 2 mins ago
-		</div>
 		<div id="currentUsers">
-			<h2>Users in Chat</h2>
-			N823jofwoiwjef
-			Bableboyjopijawf
-			gookigank
-			awjfopiwaioj
-			noobyieant
+			<h2>Users in Chat - {{newUsers.length}}</h2>
+			<div class="users">
+				<div ng-repeat="user in newUsers | orderBy:'-userName'" class="user">
+					<span style="color:{{user.userColour}}">{{user.userName}}</span>
+				</div>
+			</div>
 		</div>
 	</aside>
 </div>

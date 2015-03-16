@@ -7,7 +7,9 @@
     <meta name="description">
 
     <title>Joel's Chat App</title>
-
+    <script>
+      var chatIoData = <%- JSON.stringify(user) %>
+    </script>
     <!-- Bootstrap core CSS -->
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -43,8 +45,8 @@
       </nav>
       <div class="guest" ng-controller="GuestNameCtrl">
         Set a name:
-        {{guestName}} 
-        <input type="text" ng-model="guestName">
+        {{userName}} 
+        <input type="text" ng-model="userName">
       </div>
     </header>
     <div id="view-area" class="container" ng-view></div>

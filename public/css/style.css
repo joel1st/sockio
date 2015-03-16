@@ -81,6 +81,11 @@ li.highlight a{
 	background-color:#04454f;
 }
 
+a:hover, a:focus {
+  color: white;
+  text-decoration: none;
+}
+
 /* Front Page */
 .guest {
 	width:100%;
@@ -157,17 +162,43 @@ li.highlight a{
 .message .user{
 	float: left;
   padding-right: 10px;
-  width: 2%;
-  min-width: 190px;
+  
+	width: 2%;
+  
+	min-width: 160px;
   margin-right: 10px;
   height: 100%;
   border-right: 1px solid rgb(255, 123, 58);
 }
-.message .user-message{
-	 overflow:hidden;
-	 width:auto;
+.users .user{
+	padding:7px 15px;
+	font-size:1.1em;
 }
-
+.user-message{
+overflow: hidden;
+  width: auto;
+  overflow-wrap: break-word;
+  font-size: 1.2em;
+  line-height: 1.95em;
+  font-weight: normal;
+}
+.offline {
+  padding: 10px;
+  background-color: rgb(174, 35, 35);
+  color: white;
+  font-size:1.1em;
+  font-weight: bold;
+}
+.new-user{
+	color:lightblue;
+}
+.left-user{
+	color: salmon;
+}
+.new-user.user-message, .left-user.user-message{
+	font-size:0.85em;
+	font-weight:normal;
+}
 
 /* chat room page */
 #chat-rooms {
