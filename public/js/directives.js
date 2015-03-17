@@ -1,5 +1,5 @@
 "use strict";
-chatApp.directive('messageBox', function($window){
+chatApp.directive('messageBox', ["$window", function($window){
 	return{
 		restrict: 'A',
 		link: function(scope, element, attr){
@@ -17,7 +17,7 @@ chatApp.directive('messageBox', function($window){
 			var w = angular.element($window);
 			w.bind('resize', setCorrectHeight);
 
-			var objDiv = document.getElementsByClassName("messages")[0];
+			var objDiv = document.getElementById(attr.id);
 			var scrollHeight = objDiv.scrollHeight;
 
 			setInterval(function(){
@@ -29,7 +29,7 @@ chatApp.directive('messageBox', function($window){
 			
 		}
 	}; 
-});
+}]);
 
 chatApp.directive('determineSpace', function(){
 	return{

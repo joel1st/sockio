@@ -11,21 +11,22 @@ module.exports = function(grunt){
 		            '*/*.js',
 		            '!node_modules/*.js',
 		            'public/js/*.js',
+		            '!public/js/master.min.js'
 	            ],
 	          	tasks: ['jshint']
-    		},
-    		css: {
-		      files: ['public/stylesheets/master.css'],
-		      tasks: ['cssmin']
-   		 	}
+    		}
 		},
 	    pkg: grunt.file.readJSON('package.json'),
       	concat: {
-		    dist: {
+		    js: {
 		      	src: ['public/dist/js/angular.min.js', 'public/dist/js/angular-route.js', 
 		      		'public/dist/js/moment.js', 'public/dist/js/angular-moment.min.js', 'public/js/app.js',
 		      		'public/js/controllers.js','public/js/services.js', 'public/js/directives.js'],
-		      	dest: 'public/js/master.js'
+		      	dest: 'public/js/master.min.js'
+		    },
+		    css: {
+		      	src: ['public/dist/css/bootstrap.min.css', 'public/css/style.css'],
+		      	dest: "public/css/style.min.css"
 		    }
 		},
 		jshint: {
@@ -33,7 +34,8 @@ module.exports = function(grunt){
       			'*.js',
 	            '*/*.js',
 	            '!node_modules/*.js',
-	            'public/js/*.js'
+	            'public/js/*.js',
+	            '!public/js/master.min.js'
 	        ],
 	    	options: {
 	        // options here to override JSHint defaults
@@ -55,18 +57,18 @@ module.exports = function(grunt){
 	    uglify: {
 			build:  {
 			    files: {
-			      	
+			      	'public/js/master.min.js': 'public/js/master.min.js'
 			    }
 			}
 		},
 		cssmin: {
 		    build: {
-		        src: 'public/stylesheets/master.css',
-		        dest: 'public/stylesheets/master.css'
+		        src: 'public/css/style.min.css',
+		        dest: 'public/css/style.min.css'
 		    }
     	}
     });
-	grunt.registerTask('production', ['concat']);
+	grunt.registerTask('production', ['concat', 'uglify','cssmin']);
 
     grunt.registerTask('default', []);
 };

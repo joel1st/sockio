@@ -10,14 +10,18 @@
     <script>
       var chatIoData = <%- JSON.stringify(user) %>
     </script>
-    <!-- Bootstrap core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    
+    <% if(process.env.NODE_ENV === 'production') { %>
+      <link href="/css/style.min.css" rel="stylesheet">
+    <% } else { %>
+      <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/style.css" rel="stylesheet">
+    <% } %>
     
     <script src="/socket.io/socket.io.js"></script>
     
     <% if(process.env.NODE_ENV === 'production') { %>
-      <script src="/js/master.js"></script>
+      <script src="/js/master.min.js"></script>
     <% } else { %>
       <script src="/dist/js/angular.min.js"></script>
       <script src="/dist/js/angular-route.js"></script>
