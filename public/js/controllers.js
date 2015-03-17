@@ -1,5 +1,6 @@
 "use strict";
 
+/* Controller used to show most active rooms. */
 chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function($scope, $location, Socket){
 	$scope.rooms = [];
 	var sock = new Socket('overview', null, $scope);
@@ -9,6 +10,7 @@ chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function
 	});
 }]);
 
+/* Controller used for chat rooms. */
 chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
 	var sock = new Socket('regular-chat', $routeParams.id, $scope);
 	
@@ -31,8 +33,10 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		},
 	};
 
+	/* If the message sent is an array replace 
+	the original messages array otherwise push it. */
 	sock.on('msg', function(data){	
-		if (Array.isArray(data)){
+		if (Array.isArray(data)){ 
 			$scope.messages = data;
 		} else {
 			$scope.messages.push(data);
@@ -59,18 +63,20 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		}
 	});
 
+	/* Generate validLength boolean depending on chat.message */
 	$scope.$watch('chat.message', function(){
 		$scope.chat.validLength = ($scope.chat.message.length <= $scope.chat.maxLength);
 	});
 
+	/* When user changes routes, manually disconnect socket or otherwise connections can stay open */
 	$scope.$on('$locationChangeStart', function(){
 		sock.disconnect();
 	});
 }]);
 
-
+/* Create room */
 chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", function($scope, $http, $location, Socket){
-	$scope.room = { //defaults
+	$scope.room = {
 		roomType: 'public',
 		validLength: true,
 		maxLength: 50,
@@ -91,7 +97,9 @@ chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", 
 	};
 }]);
 
+/* Update guest name */
 chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$window", function($scope, $http, $window){
+	/* Determine whether a name has already been set or not from session data placed into chatIoData variable */
 	$scope.user = {
 		nameSet : chatIoData.set || false,
 		name : chatIoData.name,

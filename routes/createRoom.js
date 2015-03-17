@@ -5,6 +5,8 @@ var ChatRoom = require("../models/chatRoom");
 /* GET users listing. */
 router.post('/', function(req, res) {
 	var chat = new ChatRoom(req.body);
+
+	//saves chatoom and replies with the chat room id.
 	chat.save(function(err, data){
 		if(!err){
 			res.send(data._id);

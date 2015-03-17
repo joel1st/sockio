@@ -20,7 +20,7 @@ var routes = require('./routes/index');
 var createRoom = require('./routes/createRoom');
 var changeUser = require('./routes/changeUser');
 
-//require sockets
+//require socket namespaces
 var regularPage = require('./sockets/regularPage');
 var overview = require('./sockets/overview');
 

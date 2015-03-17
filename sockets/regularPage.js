@@ -13,10 +13,13 @@ module.exports = function(io){
 	    /* join room and get recent messages */
 	    socket.on('join-room', function(data){
 	    	helper.authenticateUser(socket, data, function(data, doc){
+	    		/* sends room info */
 	    		socket.emit('roomInfo', doc.title);
-	    		socket.emit('msg', doc.messages); //sends all messages when user first enters a room.
 
-	    		// regular.to(socket.roomId).emit('userChange', "there is a new kid on the block"+Math.random());
+	    		/* sends all messages when user first enters a room. */
+	    		socket.emit('msg', doc.messages); 
+
+	    		/* registers new user in room and determines whether this is their only window open */
 	    		helper.newUser(socket, socket.roomId, sessionId, session);
 	    	});	
 	    });
@@ -24,6 +27,8 @@ module.exports = function(io){
 	    /* Check what room user belongs to and then broadcast message */
 	    socket.on('msg', function(data){
 	    	helper.authenticateUser(socket, data, function(data){
+
+	    		/* Saves message to database and then emits it */
 	    		helper.newMessage(data.room, {
 					userName: session.userName,
 					userColour: session.colour,

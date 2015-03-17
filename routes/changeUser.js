@@ -6,6 +6,7 @@ var router = express.Router();
 router.post('/', function(req, res) {
 	var user = req.body.name;
 	
+	//checks username is valid and sets it to session if it is.
 	if(typeof user === 'string' && user.length > 0 && user.length <= 15 && !req.session.userSet){
 		req.session.userName = user;
 		req.session.userSet = true;

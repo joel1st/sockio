@@ -1,6 +1,8 @@
 "use strict";
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/sockio');
+var config = require('./config');
+
+mongoose.connect('mongodb://localhost/'+config.mongoDbName);
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
