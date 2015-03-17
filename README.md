@@ -1,7 +1,7 @@
 # sockio
 Chat Application built with MEAN stack + Socket.io
 
-# Requirements.
+### Requirements.
 Requires Node and Mongodb.
 
 ### Installation
