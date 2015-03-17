@@ -1,22 +1,22 @@
 # sockio
 Chat Application built with MEAN stack + Socket.io
 
-### Requirements.
-Requires Node and Mongodb.
+### Requirements:
+Node, NPM and Mongodb
 
-### Installation
+### Installation:
 ```sh
 $ git clone https://github.com/joel1st/sockio.git
 $ npm install
 $ npm start
 ``` 
 
-### While developing use jshint
+### Use JShint while developing:
 ```sh
 grunt watch
 ```
 
-### Before pushing to production minify/concat assets
+### Before pushing to production minify/concat assets:
 ```
 grunt production
 ```
