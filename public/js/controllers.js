@@ -1,20 +1,4 @@
 "use strict";
-chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", function($scope, $http, $location, Socket){
-	$scope.room = { //defaults
-		roomType: 'public'
-	};
-	$scope.submitRoom = function(){
-		$http.post('/createRoom', $scope.room).
-		  success(function(data, status, headers, config) {
-		    $location.path('/room/'+data);
-		  }).
-		  error(function(data, status, headers, config) {
-		    // called asynchronously if an error occurs
-		    // or server returns response with an error status.
-		});
-	}
-}]);
-
 
 chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function($scope, $location, Socket){
 	$scope.rooms = [];
@@ -22,11 +6,8 @@ chatApp.controller('ActiveRoomsCtrl', ["$scope", "$location", "Socket", function
 
 	sock.on('recentChats', function(data){
 		$scope.rooms = data;
-		console.log()
 	});
 }]);
-
-
 
 chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function($scope, $routeParams, Socket){
 	var sock = new Socket('regular-chat', $routeParams.id, $scope);
@@ -38,11 +19,12 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 
 	$scope.chat = {
 		maxLength:450,
+		validLength: true,
 		entered: 1, //number of lines for text input area
 		message: "",
 		submitMsg: function(){
-			if($scope.chat.message.length){
-				sock.emit('msg', $scope.chat.message);
+			if(this.message.length && this.message.length <= this.maxLength){
+				sock.emit('msg', this.message);
 				$scope.chat.message = "";
 				$scope.chat.entered = 1;
 			}
@@ -69,7 +51,7 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		$scope.users.splice(ind, 1);
 	});
 
-	sock.on('roomInfo', function(data){
+	sock.on('roomInfo', function(data){	
 		if (typeof data === 'boolean'){
 			$scope.room.notFound = data;
 		} else {
@@ -77,24 +59,58 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 		}
 	});
 
+	$scope.$watch('chat.message', function(){
+		$scope.chat.validLength = ($scope.chat.message.length <= $scope.chat.maxLength);
+	})
+
 	$scope.$on('$locationChangeStart', function(){
 		sock.disconnect();
 	});
 }]);
 
-chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$route", function($scope, $http, $route){
-	$scope.userNameSet = chatIoData.set || false;
-	$scope.userName = chatIoData.name;
+
+chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", function($scope, $http, $location, Socket){
+	$scope.room = { //defaults
+		roomType: 'public',
+		validLength: true,
+		maxLength: 50,
+		title:''
+	};
+	$scope.$watch('room.title', function(){
+		$scope.room.validLength = ($scope.room.title.length <= $scope.room.maxLength);
+	});
+	$scope.submitRoom = function(){
+		if($scope.room.title && $scope.room.validLength){
+			$http.post('/createRoom', $scope.room).
+			  success(function(data, status, headers, config) {
+			    $location.path('/room/'+data);
+			  }).
+			  error(function(data, status, headers, config) {
+			});
+		}
+	}
+}]);
+
+chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$window", function($scope, $http, $window){
+	$scope.user = {
+		nameSet : chatIoData.set || false,
+		name : chatIoData.name,
+		validLength: true,
+		maxLength:15
+	};
+	$scope.$watch('user.name', function(){
+		$scope.user.validLength = ($scope.user.name.length <= $scope.user.maxLength);
+	})
 	$scope.update = function(){
-		$http.post('/changeUser', {name: $scope.userName}).
-		  success(function(data, status, headers, config) {
-		    $scope.userNameSet = true;
-		    $route.reload();
-		  }).
-		  error(function(data, status, headers, config) {
-		    // called asynchronously if an error occurs
-		    // or server returns response with an error status.
-		});
+		if($scope.user.name && $scope.user.validLength){
+			$http.post('/changeUser', {name: $scope.userName}).
+			  success(function(data, status, headers, config) {
+			    $scope.userNameSet = true;
+			    $window.location.reload();
+			  }).
+			  error(function(data, status, headers, config) {
+			});
+		}
 	}
 	
 }]);

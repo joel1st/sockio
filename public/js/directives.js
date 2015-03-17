@@ -1,20 +1,32 @@
 "use strict";
-chatApp.directive('fillHeight', function($window){
+chatApp.directive('messageBox', function($window){
 	return{
 		restrict: 'A',
 		link: function(scope, element, attr){
+		
 			function setCorrectHeight(){
 				var headerHeight = angular.element(document.getElementsByTagName('header'))[0].offsetHeight;
 				var currentWindowHeight = $window.innerHeight;
 				var currentWindowWidth = $window.innerWidth;
 				element.css({
-					height: currentWindowHeight - headerHeight + 'px'
+					height: currentWindowHeight - headerHeight - 60 + 'px'
 				});
 			}
 			setCorrectHeight(); 
-
+			
 			var w = angular.element($window);
 			w.bind('resize', setCorrectHeight);
+
+			var objDiv = document.getElementsByClassName("messages")[0];
+			var scrollHeight = objDiv.scrollHeight;
+
+			setInterval(function(){
+				if(scrollHeight !== objDiv.scrollHeight){
+					scrollHeight = objDiv.scrollHeight;
+					objDiv.scrollTop = scrollHeight;
+				}
+			}, 70);
+			
 		}
 	}; 
 });
@@ -42,6 +54,7 @@ chatApp.directive('determineSpace', function(){
 		        	if(event.which === 13 && !keysHeld[16]){
 		            	scope.chat.submitMsg();
 		            }
+		            //document.getElementsByClassName('messages').scrollTop = 10000;
 		            keysHeld[event.keyCode] = false;
 		        }
 		    });

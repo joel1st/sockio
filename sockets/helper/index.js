@@ -7,10 +7,8 @@ module.exports = function(regular, io){
 		        callback(data);
 		    } else { 
 				ChatRoom.findOne({_id: data.room}, function(err, doc){
-					if(err){
-						socket.emit('pageData', false);
-					} else if(!doc) {
-						socket.emit('pageData', false);
+					if(err || !doc){
+						socket.emit('roomInfo', true);
 					} else {
 						if (doc.roomType !== 'private'){
 							socket.roomId = data.room;

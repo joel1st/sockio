@@ -1,9 +1,9 @@
 "use strict";
 
-chatApp.factory('Socket', [function() {
-
+chatApp.factory('Socket', function() {
+	var port = chatIoData.port || 80;
 	var Socket = function(namespace, room, scope){
-		this.socket = io.connect(":3000/"+namespace, {forceNew: true});
+		this.socket = io.connect(":"+port+"/"+namespace, {forceNew: true});
 		this.room = room;
 		this.scope = scope;
 		this.status = {
@@ -11,8 +11,9 @@ chatApp.factory('Socket', [function() {
 		}
 
 		this.socket.on('connect', function(){
-			console.log('connected')
-			this.emit('join-room');
+			if(this.room){
+				this.emit('join-room');
+			}
 			this.applyScope(function(){
 				this.status.online = true;
 			});
@@ -46,4 +47,4 @@ chatApp.factory('Socket', [function() {
 		this.scope.$apply(callback.bind(this));
 	}
 	return Socket; 
-}]);
+});

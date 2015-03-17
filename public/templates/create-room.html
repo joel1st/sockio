@@ -1,28 +1,23 @@
 <div>
 	
 	<form name="form" novalidate ng-submit="submitRoom()" ng-validate>
-		<h1>Create a room:</h1> 
-		Room Title 
-		<span ng-class="{error:room.title.length >= 50}">
-			({{room.title.length || 0}}/{{50}})
-		</span>
-		
-		<input type="text" name="title" ng-model="room.title" ng-required="true" ng-maxlength="50"><input type="submit" />
+		<h2>Create a room:</h2> 
+		Room Title:
 
-		<div ng-show="form.$submitted || form.title.$touched">
-	      <div class="error" ng-show="form.title.$error.required">Please provide a title.</div>
-	    </div>
+		<span class="maximum-words" ng-class="{error: !room.validLength}"> {{room.title.length}} / {{room.maxLength}}</span>
+		<input type="text" name="title" ng-model="room.title"><input type="submit" />
+
+		<span class="error" ng-show="form.$submitted || form.title.$touched">
+	      <span ng-show="room.title.length === 0">Please provide a title.</span>
+	    </span>
 		<br />
-		
 	</form>
 
-	<div>
-		<h1> Or Join an Active Room </h1>
-		<div class="active-rooms" ng-controller="ActiveRoomsCtrl">
-			<div class="room-link" ng-repeat="room in rooms | orderBy:'-dateModified'">
-				<div><a href="#/room/{{room._id}}">{{room.title}}</a></div>
-				Last Message: <span am-time-ago="room.dateModified"></span>
-			</div>
+	<div class="active-rooms" ng-controller="ActiveRoomsCtrl">
+		<h2 ng-show="rooms.length"> Or Join an Active Room </h2>
+		<div class="room-link" ng-repeat="room in rooms | orderBy:'-dateModified'">
+			<div><a href="#/room/{{room._id}}">{{room.title}}</a></div>
+			Last Accessed: <span am-time-ago="room.dateModified"></span>
 		</div>
 	</div>
 </div>

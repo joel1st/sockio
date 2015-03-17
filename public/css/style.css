@@ -76,8 +76,7 @@ nav ul > li:hover a {
 	text-decoration:none;
 }
 
-li.highlight a{
-	
+li.highlight a{	
 	background-color:#04454f;
 }
 
@@ -89,12 +88,21 @@ a:hover, a:focus {
 /* Front Page */
 .guest {
 	width:100%;
-	
 	padding:15px;
 	font-weight:bold;
 	color: #333;
-
 	background-color:lightblue;
+}
+.room-link{
+	padding:10px;
+}
+.room-link a{
+	font-size:1.2em;
+	font-weight:bold;
+	color: rgb(255, 123, 58);
+}
+.active-rooms{
+	margin-top:25px;
 }
 
 /* Individual Page */
@@ -112,23 +120,19 @@ a:hover, a:focus {
   width: 20%;
   background-color: #28292A;
   border-left: 1px solid rgb(31, 31, 31);
+  padding-bottom:10px;
+  height:100%;
 }
 #chat-room textarea{
 	width:80%;
 	padding:10px;
-	transition: height 2s;
-	height:auto;
-	position:absolute;
-	bottom:0;
-	left:0;
-	font-size:1.8em;
+	font-size:1.4em;
+	height:45px;
 }
 #chat-room input[type="submit"]{
 	width:20%;
-	height:50px;
-	position:absolute;
-	bottom:0;
-	right:0;
+	height:45px;
+	float:right;
 }
 #chat-sidebar h2 {
   background-color: rgb(255, 123, 58);
@@ -174,6 +178,9 @@ a:hover, a:focus {
 	padding:7px 15px;
 	font-size:1.1em;
 }
+.messages{
+	overflow-y: scroll;
+}
 .user-message{
 overflow: hidden;
   width: auto;
@@ -199,39 +206,28 @@ overflow: hidden;
 	font-size:0.85em;
 	font-weight:normal;
 }
+.max-words{
+	position: absolute;
+	left:5px;
+	bottom:3px;
+	z-index:999999;
+	color: black;
+	font-size:0.7em;
+}
+.room-not-found{
+	padding:20px;
 
-/* chat room page */
-#chat-rooms {
-	margin-top: 20px;
 }
-.room-box {
-	padding:5px;
-	height:250px;
-}
-.room-info {
-	background-color: rgb(35, 36, 37);
-	box-shadow: 1px 1px 1px rgba(1,1,1,0.2);
-  	border-top: 3px solid rgb(4, 69, 79);
-}
-.room-title{
-	font-weight:bold;
-	font-size:1.8em;
-}
-.room-title, .room-stats, .recent-messages{
-	padding:5px;
-}
-.join-chat{
-	margin-top:10px;
-	display:inline-block;
-	text-align:center;
-	padding:12px;
-	background-color:orange;
-	width:100%;
-	color:white;
+.max-words.error{
+	color:red;
 	font-weight:bold;
 }
-
-
+@media all and (max-width: 800px) { 
+	#chat-sidebar, #chat-box{
+		width:100%;
+		height:auto;
+	}
+}
 
 
 

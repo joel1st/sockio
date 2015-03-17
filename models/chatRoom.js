@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 
-
 var enforceTitleLength = function(property) {
 	return (property && property.length >= 1 && property.length <= 80);
 };
