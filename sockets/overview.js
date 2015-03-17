@@ -16,7 +16,7 @@ module.exports = function(io){
 		getMostRecentChats(function(data){
 			overview.emit('recentChats', data);
 		});
-	}, 10000)
+	}, 10000);
 	
 	overview.on('connection', function(socket){
 	    console.log('connection made!');

@@ -8,7 +8,7 @@ chatApp.factory('Socket', function() {
 		this.scope = scope;
 		this.status = {
 			online : true
-		}
+		};
 
 		this.socket.on('connect', function(){
 			if(this.room){
@@ -27,7 +27,7 @@ chatApp.factory('Socket', function() {
 	};
 
 	Socket.prototype.emit = function(emit, msg){
-		var data = {msg: msg, room: this.room}
+		var data = {msg: msg, room: this.room};
 		this.socket.emit(emit, data);
 	};
 
@@ -45,6 +45,6 @@ chatApp.factory('Socket', function() {
 
 	Socket.prototype.applyScope = function(callback){
 		this.scope.$apply(callback.bind(this));
-	}
+	};
 	return Socket; 
 });

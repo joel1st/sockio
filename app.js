@@ -63,7 +63,7 @@ app.use('/', routes);
 var recentThreads = [];
 io.use(sessionSharing(sessionMiddleware));
 regularPage(io, recentThreads);
-overview(io, recentThreads)
+overview(io, recentThreads);
 
 
 // catch 404 and forward to error handler

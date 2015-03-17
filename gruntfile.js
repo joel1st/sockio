@@ -10,9 +10,9 @@ module.exports = function(grunt){
 	          		'*.js',
 		            '*/*.js',
 		            '!node_modules/*.js',
-		            'public/javascripts/*.js',
+		            'public/js/*.js',
 	            ],
-	          	tasks: ['jshint', 'concat', 'uglify']
+	          	tasks: ['jshint']
     		},
     		css: {
 		      files: ['public/stylesheets/master.css'],
@@ -22,8 +22,10 @@ module.exports = function(grunt){
 	    pkg: grunt.file.readJSON('package.json'),
       	concat: {
 		    dist: {
-		      	src: [],
-		      	dest: 'public/javascripts/master.js'
+		      	src: ['public/dist/js/angular.min.js', 'public/dist/js/angular-route.js', 
+		      		'public/dist/js/moment.js', 'public/dist/js/angular-moment.min.js', 'public/js/app.js',
+		      		'public/js/controllers.js','public/js/services.js', 'public/js/directives.js'],
+		      	dest: 'public/js/master.js'
 		    }
 		},
 		jshint: {
@@ -31,13 +33,18 @@ module.exports = function(grunt){
       			'*.js',
 	            '*/*.js',
 	            '!node_modules/*.js',
-	            'public/javascripts/*.js'
+	            'public/js/*.js'
 	        ],
 	    	options: {
 	        // options here to override JSHint defaults
 	        	node: true,
 	        	loopfunc: true,
 		        globals: {
+		        	angular: true,
+		        	chatApp: true,
+		        	chatIoData: true,
+		        	document:true,
+		        	io:true,
 		        	jQuery: false,
 		        	console: true,
 		        	module: true,
@@ -59,6 +66,7 @@ module.exports = function(grunt){
 		    }
     	}
     });
+	grunt.registerTask('production', ['concat']);
 
     grunt.registerTask('default', []);
 };

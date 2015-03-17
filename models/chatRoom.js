@@ -15,7 +15,7 @@ var enforceUsernameLength = function(property) {
 
 var enforceValidType = function(property){
 	return property === 'public' || property === 'private' || property === 'protected';
-}
+};
 
 var ChatRoom = new mongoose.Schema({
 	dateAdded : {type: Date, 'default': Date.now},
@@ -53,7 +53,7 @@ var ChatRoom = new mongoose.Schema({
 });
 
 //Set index on actual database rather than schema for production.
-ChatRoom.index({'messages.date': -1, dateModified: -1})
+ChatRoom.index({'messages.date': -1, dateModified: -1});
 
 
 // Use mean.js method of hasing passwords. (http://meanjs.org/)

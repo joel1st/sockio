@@ -4,5 +4,5 @@
 module.exports = function(sessionMiddleware){
 	return function(socket, next){
 		sessionMiddleware(socket.request, socket.request.res, next);
-	}   
-}
+	};   
+};

@@ -4,7 +4,6 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/', function(req, res) {
-	console.log(req.session.userSet)
 	var user = req.body.name;
 	
 	if(typeof user === 'string' && user.length > 0 && user.length <= 15 && !req.session.userSet){

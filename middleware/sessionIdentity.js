@@ -14,7 +14,7 @@ module.exports = function(req, res, next){
     			return ind;
     		}
     		return findEmptyArrField();
-    	};
+    	}
     	
     	colourArr[findEmptyArrField()] = Math.round(Math.random()*105)+160;
     	colourArr[findEmptyArrField()] = 255;
@@ -37,4 +37,4 @@ module.exports = function(req, res, next){
     }
 
     next();
-}
+};

@@ -14,16 +14,20 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     
-    
-    <script src="/dist/js/angular.min.js"></script>
-    <script src="/dist/js/angular-route.js"></script>
-    <script src="/dist/js/moment.js"></script>
-    <script src="/dist/js/angular-moment.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="/js/controllers.js"></script>
-    <script src="/js/services.js"></script>
-    <script src="/js/directives.js"></script>
+    
+    <% if(process.env.NODE_ENV === 'production') { %>
+      <script src="/js/master.js"></script>
+    <% } else { %>
+      <script src="/dist/js/angular.min.js"></script>
+      <script src="/dist/js/angular-route.js"></script>
+      <script src="/dist/js/moment.js"></script>
+      <script src="/dist/js/angular-moment.min.js"></script>
+      <script src="/js/app.js"></script>
+      <script src="/js/controllers.js"></script>
+      <script src="/js/services.js"></script>
+      <script src="/js/directives.js"></script>
+    <% } %>
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -46,7 +50,7 @@
       </nav>
       <div class="guest" ng-controller="GuestNameCtrl">   
         <form ng-submit="update()" ng-show="!user.nameSet">
-          Set a name: <span class="max-words" ng-class="{error: !user.validLength}"> {{user.name.length}} / {{user.maxLength}}</span>
+          Set a name: <span class="maximum-words" ng-class="{error: !user.validLength}"><small>{{user.name.length}} / {{user.maxLength}}</small></span>
           <input type="text" ng-model="user.name">
           <input type="submit"></button>
         </form>

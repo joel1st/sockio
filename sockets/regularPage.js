@@ -14,7 +14,7 @@ module.exports = function(io){
 	    socket.on('join-room', function(data){
 	    	helper.authenticateUser(socket, data, function(data, doc){
 	    		socket.emit('roomInfo', doc.title);
-	    		socket.emit('msg', doc.messages) //sends all messages when user first enters a room.
+	    		socket.emit('msg', doc.messages); //sends all messages when user first enters a room.
 
 	    		// regular.to(socket.roomId).emit('userChange', "there is a new kid on the block"+Math.random());
 	    		helper.newUser(socket, socket.roomId, sessionId, session);

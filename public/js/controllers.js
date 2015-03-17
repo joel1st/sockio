@@ -61,7 +61,7 @@ chatApp.controller('ChatRoomCtrl', ["$scope", "$routeParams", "Socket", function
 
 	$scope.$watch('chat.message', function(){
 		$scope.chat.validLength = ($scope.chat.message.length <= $scope.chat.maxLength);
-	})
+	});
 
 	$scope.$on('$locationChangeStart', function(){
 		sock.disconnect();
@@ -88,7 +88,7 @@ chatApp.controller('CreateRoomCtrl', ["$scope", "$http", "$location", "Socket", 
 			  error(function(data, status, headers, config) {
 			});
 		}
-	}
+	};
 }]);
 
 chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$window", function($scope, $http, $window){
@@ -100,10 +100,10 @@ chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$window", function($sco
 	};
 	$scope.$watch('user.name', function(){
 		$scope.user.validLength = ($scope.user.name.length <= $scope.user.maxLength);
-	})
+	});
 	$scope.update = function(){
 		if($scope.user.name && $scope.user.validLength){
-			$http.post('/changeUser', {name: $scope.userName}).
+			$http.post('/changeUser', {name: $scope.user.name}).
 			  success(function(data, status, headers, config) {
 			    $scope.userNameSet = true;
 			    $window.location.reload();
@@ -111,6 +111,6 @@ chatApp.controller('GuestNameCtrl', ["$scope", "$http", "$window", function($sco
 			  error(function(data, status, headers, config) {
 			});
 		}
-	}
+	};
 	
 }]);
